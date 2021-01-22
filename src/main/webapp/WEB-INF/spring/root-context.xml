@@ -2,10 +2,47 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"></property>
 		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<!-- 1. 데이터 소스  -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" 	value="com.mysql.jdbc.Driver" />
+		<property name="url" 				value="jdbc:mysql://localhost:9000/jpa?characterEncoding=UTF-8" />
+		<property name="username" 			value="scott" />
+		<property name="password" 			value="tiger" />
+	</bean>
+
+	<!--  2. defaultLobHandler -->
+	<bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
+
+	<!-- 3. Hibernate SessionFactory? -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"  primary="true">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="lobHandler" ref="defaultLobHandler" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.hig.todolist</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.generate_statistics">false</prop> <!-- 161214 쿼리 실행시간 로그 표시 추가 -->
+				<prop key="hibernate.current_session_context_class">thread</prop> <!-- getCurrentSession 위해 추가 170308 -->
+				<prop key="hibernate.order_inserts">true</prop> <!--  170310 bulk Insert 위해 -->
+				<prop key="hibernate.order_updates">true</prop> 
+				<prop key="hibernate.jdbc.batch_size">30</prop> 
+			</props>
+		</property>
+		<property name="configLocation">
+    		<value>classpath:hibernate-cfg.xml</value>
+    	</property>
 	</bean>
 </beans>
