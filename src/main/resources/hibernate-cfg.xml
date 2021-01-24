@@ -8,8 +8,9 @@
 		<property name="hibernate.connection.username">scott</property>
 		<property name="hibernate.connection.password">tiger</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
-  		<property name="hbm2ddl.auto">create</property>
+  		<property name="hbm2ddl.auto">update</property>
   		<property name="show_sql">true</property>
 		<mapping class="com.hig.todolist.dto.Diary"/>
+		<mapping class="com.hig.todolist.dto.Member"/>
 	</session-factory>
 </hibernate-configuration>

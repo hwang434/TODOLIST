@@ -22,9 +22,10 @@ public class HomeController {
 	@Autowired
 	DiaryService dService;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "home"}, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		System.out.println("홈컨트롤러");
+		System.out.println("[HomeController] : home");
+
 		return "home";
 	}
 	

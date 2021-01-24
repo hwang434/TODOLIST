@@ -1,12 +1,10 @@
 package com.hig.todolist.controller;
 
-import java.util.Locale;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hig.todolist.dto.Diary;
 import com.hig.todolist.service.DiaryService;
@@ -18,19 +16,19 @@ public class DiaryController {
 	
 	@RequestMapping(value="/writeFrm", method = RequestMethod.GET)
 	public String writeFrm() {
-		System.out.println("ddd");
+		System.out.println("[DisplayController] : writeFrm");
 		return "writeFrm";
 	}
 	
-	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String write(@RequestParam("title") String title, @RequestParam("content") String content) {
+		System.out.println("[DisplayController] : write");
 		Diary diary = new Diary();
-		diary.setTitle("title");
-		diary.setContent("content");
-		diary.setDno(1);
-		diary.setComplete(true);
+		diary.setTitle(title);
+		diary.setContent(content);
+		
 		dService.writeDiary(diary);
 		
-		return "home";
+		return "redirect:/home";
 	}
 }

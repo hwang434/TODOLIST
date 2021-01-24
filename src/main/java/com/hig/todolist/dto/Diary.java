@@ -1,18 +1,14 @@
 package com.hig.todolist.dto;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity(name = "diary")
 public class Diary {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int dno;
 	private String title;
 	private String content;

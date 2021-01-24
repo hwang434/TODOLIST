@@ -6,21 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import com.hig.todolist.dto.Diary;
+import com.hig.todolist.dto.Member;
 
 @Repository
-public class DiaryDao extends HibernateDaoSupport {
+public class RegisterDao  extends HibernateDaoSupport {
 	@Autowired
-	public DiaryDao(SessionFactory sf) {
+	public RegisterDao(SessionFactory sf) {
 		super.setSessionFactory(sf);
 	}
-
-	public void save(Diary diary) {
+	
+	public void register(Member member) {
 		Session session = getHibernateTemplate().getSessionFactory().openSession();
 		
 		session.beginTransaction();
 		
-		session.save(diary);
+		session.save(member);
 		
 		session.getTransaction().commit();
 	}
