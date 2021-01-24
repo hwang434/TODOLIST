@@ -29,6 +29,6 @@ public class RegisterController {
 		
 		rService.register(member);
 		
-		return "home";
+		return "redirect:/home";
 	}
 }
